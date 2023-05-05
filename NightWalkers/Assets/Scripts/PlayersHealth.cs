@@ -22,7 +22,12 @@ public class PlayersHealth : MonoBehaviour
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
 
-        if (!isRegenerating)
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+
+        else if (!isRegenerating)
         {
             isRegenerating = true;
             Invoke("RegenerateHealth", 3f);
@@ -34,6 +39,13 @@ public class PlayersHealth : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetHealth(currentHealth);
         isRegenerating = false;
+    }
+
+    void Die()
+    {
+        Time.timeScale = 0;
+
+        Debug.Log("Player has died");
     }
 
     // Update is called once per frame
